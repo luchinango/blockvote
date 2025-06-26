@@ -10,9 +10,15 @@ export interface Candidate {
 export interface Election {
   id: string;
   nombre: string;
+  descripcion: string;
   fecha_inicio: string;
   fecha_fin: string;
   estado: "Abierta" | "Cerrada";
+  votos_totales?: number;
+  resultados?: {
+    candidateId: string;
+    votos: number;
+  }[];
 }
 
 export interface Vote {
