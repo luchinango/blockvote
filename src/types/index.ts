@@ -14,6 +14,7 @@ export interface Election {
   fecha_inicio: string;
   fecha_fin: string;
   estado: "Abierta" | "Cerrada";
+  anonimato: "Secreto" | "Auditado";
   votos_totales?: number;
   resultados?: {
     candidateId: string;

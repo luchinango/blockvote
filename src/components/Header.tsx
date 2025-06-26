@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { Button } from '@/components/ui/button';
-import { LogOut, Vote } from 'lucide-react';
+import { LogOut, Shield, Vote } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 export function Header() {
   const router = useRouter();
@@ -25,6 +26,13 @@ export function Header() {
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
+           <Button variant="outline" size="sm" asChild>
+             <Link href="/admin/audit">
+                <Shield className="mr-2 h-4 w-4" />
+                Auditoría
+             </Link>
+          </Button>
+          <Separator orientation="vertical" className="h-6" />
           <Button variant="ghost" size="sm" onClick={handleLogout}>
             <LogOut className="mr-2 h-4 w-4" />
             Cerrar Sesión
