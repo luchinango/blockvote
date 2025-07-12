@@ -14,6 +14,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useToast } from '@/hooks/use-toast';
 import { CheckCircle2, Loader2, User, Vote as VoteIcon, Info } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useWeb3Auth } from "@/context/web3authContext";
+import { useAccount } from "wagmi";
 
 export default function ElectionVotingPage() {
   const { toast } = useToast();
@@ -26,6 +28,10 @@ export default function ElectionVotingPage() {
   const [hasVoted, setHasVoted] = useState(false);
   const [isVoting, setIsVoting] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
+  const { connected, connect } = useWeb3Auth();
+  const connectLoading = false; // Set to false or manage loading state separately if needed
+  const { address } = useAccount();
 
   useEffect(() => {
     const currentElection = elections.find(e => e.id === electionId) ?? null;
@@ -53,6 +59,27 @@ export default function ElectionVotingPage() {
       className: "bg-green-500 text-white border-green-500"
     });
   };
+
+  // Mostrar login si no está conectado
+  if (!connected) {
+    return (
+      <div className="container mx-auto py-16 flex flex-col items-center">
+        <Card className="max-w-md w-full shadow-lg">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-headline">Acceso a la Votación</CardTitle>
+            <CardDescription>
+              Para votar, primero debe autenticarse con Web3Auth usando correo electrónico, Metamask o red social.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button onClick={() => connect()} disabled={connectLoading} size="lg" className="w-full">
+              {connectLoading ? "Conectando..." : "Ingresar con Web3Auth"}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (!election) {
     return <div className="container mx-auto py-8 text-center">Cargando elección...</div>;

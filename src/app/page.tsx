@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
+import { useWeb3Auth } from "@/context/web3authContext";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,29 +9,14 @@ import { Wallet, Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function WelcomePage() {
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { connected, connect, error } = useWeb3Auth() as { connected: boolean; connect: () => void; error?: { message: string } };
+  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
 
-  const handleLogin = async () => {
-    setIsConnecting(true);
-    setError(null);
-
-    // Simulate wallet connection and signature
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    // In a real app, you'd use a library like ethers.js or web3.js
-    // to interact with window.ethereum
-    const success = Math.random() > 0.1; // 90% success rate for demo
-
-    if (success) {
-      // On successful authentication, redirect to the elections page
-      router.push("/elections");
-    } else {
-      setError("Fallo al firmar el mensaje. Por favor, intente de nuevo.");
-      setIsConnecting(false);
-    }
-  };
+  if (connected) {
+    router.push("/elections");
+    return null;
+  }
 
   return (
     <main className="flex flex-1 items-center justify-center p-4 bg-background">
@@ -53,17 +39,17 @@ export default function WelcomePage() {
             {error && (
               <Alert variant="destructive">
                 <AlertTitle>Error de Autenticación</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription>{error.message}</AlertDescription>
               </Alert>
             )}
 
-            <Button onClick={handleLogin} disabled={isConnecting} className="w-full" size="lg">
-              {isConnecting ? (
+            <Button onClick={connect} disabled={loading} className="w-full" size="lg">
+              {loading ? (
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
               ) : (
                 <Wallet className="mr-2 h-5 w-5" />
               )}
-              {isConnecting ? "Conectando..." : "Ingresar con Firma Digital"}
+              {loading ? "Conectando..." : "Ingresar con Web3Auth"}
             </Button>
           </CardContent>
         </Card>
