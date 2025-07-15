@@ -29,9 +29,14 @@ export default function ElectionVotingPage() {
   const [isVoting, setIsVoting] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
-  const { connected, connect } = useWeb3Auth();
-  const connectLoading = false; // Set to false or manage loading state separately if needed
+  const { web3auth, initialized } = useWeb3Auth();
+  const [connected, setConnected] = useState(false);
+  const [connectLoading, setConnectLoading] = useState(false);
   const { address } = useAccount();
+
+  useEffect(() => {
+    setConnected(!!web3auth?.provider);
+  }, [web3auth]);
 
   useEffect(() => {
     const currentElection = elections.find(e => e.id === electionId) ?? null;
@@ -58,6 +63,20 @@ export default function ElectionVotingPage() {
       variant: "default",
       className: "bg-green-500 text-white border-green-500"
     });
+  };
+
+  const connect = async () => {
+    if (!initialized || !web3auth || !web3auth.loginModal) {
+      return;
+    }
+    setConnectLoading(true);
+    try {
+      await web3auth.connect();
+      setConnected(!!web3auth.provider);
+    } catch (err) {
+      console.error(err);
+    }
+    setConnectLoading(false);
   };
 
   // Mostrar login si no está conectado
