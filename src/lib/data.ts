@@ -6,9 +6,9 @@ export const elections: Election[] = [
     nombre: 'Elección de Directorio 2025',
     descripcion: 'Elección anual para los miembros del directorio de la Cámara Boliviana de Blockchain.',
     fecha_inicio: '2025-01-15',
-    fecha_fin: '2025-01-30',
-    estado: 'Abierta',
     anonimato: 'Auditado',
+    votos_totales: 0,
+    progreso: 0,
   },
   {
     id: 'eleccion-comite-etica-2024',

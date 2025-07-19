@@ -12,10 +12,11 @@ export interface Election {
   nombre: string;
   descripcion: string;
   fecha_inicio: string;
-  fecha_fin: string;
-  estado: "Abierta" | "Cerrada";
+  fecha_fin?: string;
+  estado?: "Abierta" | "Cerrada";
   anonimato: "Secreto" | "Auditado";
   votos_totales?: number;
+  progreso?: number;
   resultados?: {
     candidateId: string;
     votos: number;
