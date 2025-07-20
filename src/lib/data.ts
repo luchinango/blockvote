@@ -6,6 +6,7 @@ export const elections: Election[] = [
     nombre: 'Elección de Directorio 2025',
     descripcion: 'Elección anual para los miembros del directorio de la Cámara Boliviana de Blockchain.',
     fecha_inicio: '2025-01-15',
+    estado: "Abierta", // <-- ¡Asegúrate de que esté presente!
     anonimato: 'Auditado',
     votos_totales: 0,
     progreso: 0,

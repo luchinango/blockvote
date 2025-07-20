@@ -1,4 +1,5 @@
-# **App Name**: Voto Seguro CABLOCK
+# **App Name**: BlockVote
+# **App Description**: A digital voting platform for the election of directors in a company.LOCKVOTE LOCK
 
 ## Core Features:
 

@@ -23,7 +23,7 @@ export default function WelcomePage() {
             <div className="mx-auto bg-primary/10 text-primary rounded-full p-3 w-fit mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-vote"><path d="M15 21v-4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v4"/><path d="M12 11.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5Z"/><path d="M6 21a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2"/><path d="M18 15h-2"/></svg>
             </div>
-            <CardTitle className="text-2xl font-headline">Voto Seguro CABLOCK</CardTitle>
+            <CardTitle className="text-2xl font-headline">BlockVote</CardTitle>
             <CardDescription>
               Bienvenido al sistema de votación electrónica para la elección del Directorio de la Cámara Boliviana de Blockchain.
             </CardDescription>
