@@ -6,12 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { LogOut, Shield, Menu, Home, PlusCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useWeb3AuthDisconnect } from "@web3auth/modal/react";
 
 export function Header() {
+  const { disconnect, loading } = useWeb3AuthDisconnect();
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await disconnect();
     router.push('/');
   };
 
@@ -94,7 +97,7 @@ export function Header() {
 
         {/* Logout Button */}
         <div className="flex w-full items-center justify-end">
-          <Button variant="ghost" size="sm" onClick={handleLogout}>
+          <Button variant="ghost" size="sm" onClick={handleLogout} disabled={loading}>
             <LogOut className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Cerrar Sesión</span>
           </Button>

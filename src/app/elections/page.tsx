@@ -31,7 +31,7 @@ function ElectionNotifications() {
   return (
     <div className="space-y-4 mb-8">
       {openElections.map(election => {
-        const closingDate = parseISO(election.fecha_fin);
+        const closingDate = parseISO(election.fecha_fin || "");
         const hoursLeft = differenceInHours(closingDate, now);
         const hasVoted = userVoteStatus[election.id] ?? false;
         
